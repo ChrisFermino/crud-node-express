@@ -3,6 +3,12 @@ import BookController from "../controller/bookController.js";
 
 const router = express.Router();
 
-router.get("/livros", BookController.getBooks);
+router
+    .get("/books", BookController.getBooks)
+    .get("/books/search", BookController.getBookByPublishing)
+    .get("/books/:id", BookController.getBookById)
+    .post("/books", BookController.saveBook)
+    .put("/books/:id", BookController.editBook)
+    .delete("/books/:id", BookController.deleteBook)
 
 export default router;
