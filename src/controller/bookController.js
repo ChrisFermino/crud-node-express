@@ -22,7 +22,6 @@ class BookController {
     }
 
     static getBookSearch = (req, res) => {
-//        let url = req.originalurl
         if (req.query.name) {
             const tittle = req.query.name
             books.find({'tittle': {$regex: `(.*)${tittle}(.*)`}}, {}, (err, books) => {
