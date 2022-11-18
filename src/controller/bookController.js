@@ -21,12 +21,20 @@ class BookController {
             })
     }
 
-    static getBookByPublishing = (req, res) => {
-        const publishing = req.query.publishing
+    static getBookSearch = (req, res) => {
+//        let url = req.originalurl
+        if (req.query.name) {
+            const tittle = req.query.name
+            books.find({'tittle': {$regex: `(.*)${tittle}(.*)`}}, {}, (err, books) => {
+                res.status(200).send(books);
+            })
 
-        books.find({'publishing': publishing}, {}, (err, books) => {
-            res.status(200).send(books);
-        })
+        } else if (req.query.publishing) {
+            const publishing = req.query.publishing
+            books.find({'publishing': {$regex: `(.*)${publishing}(.*)`}}, {}, (err, books) => {
+                res.status(200).send(books);
+            })
+        } else res.status(404).send({message: `Search Not Found`})
     }
 
     static saveBook = (req, res) => {
